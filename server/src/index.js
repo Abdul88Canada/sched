@@ -1,5 +1,5 @@
 import express from 'express';
-import bodyParser  from 'body-parser';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
@@ -11,12 +11,14 @@ import { testRouter } from './routes/test.js';
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 app.use(testRouter);
 
-app.use(bodyParser());
 app.use(cors());
 
 const start = async () => {

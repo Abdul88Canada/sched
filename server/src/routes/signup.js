@@ -30,18 +30,14 @@ router.post('/api/users/signup', [
         const auth = User.build({email,  password});
         await auth.save();
 
+        const user = await User.findOne({ userName })
+
         // generate JWT
         const userJwt = jwt.sign({
-            id: auth.id,
-            email: auth.email,
-        }, 'process.env.JWT_KEY!');
+            userName: user.userName,
+        },'process.env.JWT_KEY!');
 
-        // store it on session object
-        req.session = {
-            jwt: userJwt
-        };
-
-        res.status(201).send(auth);
+        res.status(200).json({message: "Welcome", token: userJwt});
 });
 
 export { router as signupRouter };

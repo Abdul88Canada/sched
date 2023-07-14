@@ -16,7 +16,7 @@ router.post('/api/users/signin', [
         .withMessage('Please enter a password')
     ],
     validateRequest,
-    async (req, rese) => {
+    async (req, res) => {
         const { userName, password } = req.body;
     
         const existingUser = await Authentication.findOne({ userName });
@@ -35,17 +35,10 @@ router.post('/api/users/signin', [
 
         // generate JWT
         const userJwt = jwt.sign({
-            id: user.user_id,
             userName: user.userName,
-            user_type: user.user_type
         },'process.env.JWT_KEY!');
 
-        // store it on session object
-        req.session = {
-            jwt: userJwt
-        };
-
-        res.status(200).send(existingUser);
+        res.status(200).json({message: "Welcome", token: userJwt});
 });
 
 export { router as signinRouter };

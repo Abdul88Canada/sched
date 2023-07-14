@@ -196,6 +196,7 @@ import QuickLinks from 'components/app/support-desk/quick-links/QuickLinks';
 import Reports from 'components/app/support-desk/reports/Reports';
 import InputMaskExample from 'components/doc-components/InputMaskExample';
 import RangeSlider from 'components/doc-components/RangeSlider';
+import {RequireAuth} from 'react-auth-kit';
 
 const FalconRoutes = () => {
   return (
@@ -293,21 +294,21 @@ const FalconRoutes = () => {
 
       <Route element={<MainLayout />}>
         {/*Dashboard*/}
-        <Route path="/" element={<Dashboard />} />
-        <Route path="dashboard/analytics" element={<Analytics />} />
-        <Route path="dashboard/crm" element={<Crm />} />
-        <Route path="dashboard/saas" element={<Saas />} />
-        <Route path="dashboard/e-commerce" element={<Ecommerce />} />
-        <Route path="dashboard/lms" element={<Lms />} />
+        <Route path="/" element={<RequireAuth loginPath='/authentication/simple/login'><Dashboard /></RequireAuth>} />
+        <Route path="dashboard/analytics" element={<RequireAuth loginPath='/authentication/simple/login'><Analytics /></RequireAuth>} />
+        <Route path="dashboard/crm" element={<RequireAuth loginPath='/authentication/simple/login'><Crm /></RequireAuth>} />
+        <Route path="dashboard/saas" element={<RequireAuth loginPath='/authentication/simple/login'><Saas /></RequireAuth>} />
+        <Route path="dashboard/e-commerce" element={<RequireAuth loginPath='/authentication/simple/login'><Ecommerce /></RequireAuth>} />
+        <Route path="dashboard/lms" element={<RequireAuth loginPath='/authentication/simple/login'><Lms /></RequireAuth>} />
         <Route
           path="dashboard/project-management"
-          element={<ProjectManagement />}
+          element={<RequireAuth loginPath='/authentication/simple/login'><ProjectManagement /></RequireAuth>}
         />
-        <Route path="dashboard/support-desk" element={<SupportDesk />} />
+        <Route path="dashboard/support-desk" element={<RequireAuth loginPath='/authentication/simple/login'><SupportDesk /></RequireAuth>} />
         {/* E Commerce */}
         <Route
           path="e-commerce/orders/order-details"
-          element={<OrderDetails />}
+          element={<RequireAuth loginPath='/authentication/simple/login'><OrderDetails /></RequireAuth>}
         />
         <Route path="e-commerce/orders/order-list" element={<Orders />} />
         <Route path="e-commerce/invoice" element={<Invoice />} />

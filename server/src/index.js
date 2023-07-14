@@ -14,12 +14,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 app.use(testRouter);
-
-app.use(cors());
 
 const start = async () => {
     try {
@@ -28,8 +31,8 @@ const start = async () => {
     } catch(err) {
         console.log(err);
     }
-    app.listen(3000, () => {
-        console.log("Listening at port: 3000!!!")
+    app.listen(5000, () => {
+        console.log("Listening at port: 5000!!!")
     });
 };
 

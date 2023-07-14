@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useSignIn } from 'react-auth-kit';
+import axios from 'axios';
 import { Button, Form, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
 import Divider from 'components/common/Divider';
 import SocialAuthButtons from './SocialAuthButtons';
 
@@ -16,12 +20,27 @@ const RegistrationForm = ({ hasLabel }) => {
     isAccepted: false
   });
 
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
   // Handler
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    toast.success(`Successfully registered as ${formData.name}`, {
-      theme: 'colored'
-    });
+    try {
+      const res = await axios.post('http://localhost:5000/api/users/signup', formData);
+      toast.success(`Successfully registered as ${formData.name}`, {
+        theme: 'colored'
+      });
+      signIn({
+        token: res.data.token,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: { email: formData.email }
+      });
+      navigate('/');
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   const handleFieldChange = e => {

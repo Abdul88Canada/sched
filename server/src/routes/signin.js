@@ -2,43 +2,28 @@ import express from 'express';
 import { body } from 'express-validator';
 import jwt  from 'jsonwebtoken';
 
-import { User } from '../models/user.js';
-import { validateRequest } from '../middleware/validate-request.js';
-import { Password } from '../services/password.js';
-
+import User from '../models/user.js';
 
 const router = express.Router();
 
-router.post('/api/users/signin', [
-    body('password')
-        .trim()
-        .notEmpty()
-        .withMessage('Please enter a password')
-    ],
-    validateRequest,
+router.post('/api/users/signin',
     async (req, res) => {
-        const { userName, password } = req.body;
+        const {email, password} = req.body;
+        try {
+            const user = await User.find({email});
     
-        const existingUser = await Authentication.findOne({ userName });
-
-        if (!existingUser) {
-            throw new BadRequestError('Invalid credentials');
+            if (!user) res.status(404).json({message: 'User doesn\'t exsit.'});
+    
+            const isPasswordCorrect = await bcrypt.compare(password, exsitingUser.password);
+    
+            if(!isPasswordCorrect) return res.status(404).json({message: 'Invalid cred.'});
+    
+            const token = jwt.sign({email: exsitingUser.email, id: exsitingUser._id}, 'test', {expiresIn: '1h'});
+    
+            res.status(200).json({message: 'Welcome!', token});
+        } catch (error) {
+            res.status(500).json({message: error.message});
         }
-
-        const passwordsMatch = await Password.compare(String(existingUser.password), password);
-
-        if (!passwordsMatch) {
-            throw new BadRequestError('Invalid credentials');
-        }
-
-        const user = await User.findOne({ userName })
-
-        // generate JWT
-        const userJwt = jwt.sign({
-            userName: user.userName,
-        },'process.env.JWT_KEY!');
-
-        res.status(200).json({message: "Welcome", token: userJwt});
 });
 
 export { router as signinRouter };

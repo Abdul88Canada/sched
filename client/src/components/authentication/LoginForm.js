@@ -1,4 +1,3 @@
-import Divider from 'components/common/Divider';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -9,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SocialAuthButtons from './SocialAuthButtons';
+import Divider from 'components/common/Divider';
+import useRequest from 'components/hooks/use-request';
 
 const LoginForm = ({ hasLabel, layout }) => {
   // State

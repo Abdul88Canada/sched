@@ -11,10 +11,10 @@ router.post('/api/users/signin',
     async (req, res) => {
         const {email, password} = req.body;
         try {
-            const user = await User.find({email});
+            const user = await User.findOne({email});
     
             if (!user) res.status(404).json({message: 'User doesn\'t exsit.'});
-            console.log(user);
+
             const isPasswordCorrect = await bcrypt.compare(password, user.password);
     
             if(!isPasswordCorrect) return res.status(404).json({message: 'Invalid cred.'});
@@ -23,6 +23,7 @@ router.post('/api/users/signin',
     
             res.json({message: 'Welcome!', token});
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({message: error.message});
         }
 });

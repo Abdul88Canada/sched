@@ -10,13 +10,13 @@ router.post('/api/users/signup',
     async (req, res) => {
         try {
             console.log(req.body)
-            const {email, password} = req.body;
+            const {email, password, confirmPassword} = req.body;
     
             const exsitingUser = await User.findOne({email});
         
             if (exsitingUser) return res.status(400).json({message: 'User already exsit.'});
         
-            //if(password !== confirmPassword) return res.status(400).json({message: 'Passwords don\'t match.'});
+            if(password !== confirmPassword) return res.status(400).json({message: 'Passwords don\'t match.'});
         
             const hashedPassword = await bcrypt.hash(password, 12);
         

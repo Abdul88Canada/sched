@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useSignIn } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 import SocialAuthButtons from './SocialAuthButtons';
 
 const LoginForm = ({ hasLabel, layout }) => {
@@ -14,12 +18,28 @@ const LoginForm = ({ hasLabel, layout }) => {
     remember: false
   });
 
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
   // Handler
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:5000/api/users/signin', formData);
     toast.success(`Logged in as ${formData.email}`, {
       theme: 'colored'
     });
+    console.log(res.data.token);
+    signIn({
+      token: res.data.token,
+      expiresIn: 3600,
+      tokenType: "Bearer",
+      authState: { email: formData.email }
+    });
+    navigate('/');
+  } catch(err) {
+    console.log(err);
+  }
   };
 
   const handleFieldChange = e => {

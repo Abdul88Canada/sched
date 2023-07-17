@@ -9,7 +9,6 @@ import axios from 'axios';
 
 import SocialAuthButtons from './SocialAuthButtons';
 import Divider from 'components/common/Divider';
-import useRequest from 'components/hooks/use-request';
 
 const LoginForm = ({ hasLabel, layout }) => {
   // State
@@ -18,6 +17,8 @@ const LoginForm = ({ hasLabel, layout }) => {
     password: '',
     remember: false
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState(false);
 
   const signIn = useSignIn();
   const navigate = useNavigate();
@@ -26,20 +27,25 @@ const LoginForm = ({ hasLabel, layout }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/signin', formData);
-    toast.success(`Logged in as ${formData.email}`, {
-      theme: 'colored'
+    const res = await axios.post('http://localhost:5000/api/users/signin', formData).catch((error) => {
+      setErrorMessage(error.response.data.message);
+      setError(true);
+      throw new Error(error.response.data.message);
     });
-    console.log(res.data.token);
-    signIn({
-      token: res.data.token,
-      expiresIn: 3600,
-      tokenType: "Bearer",
-      authState: { email: formData.email }
-    });
-    navigate('/');
+    if (!error) {
+      toast.success(`Logged in as ${formData.email}`, {
+        theme: 'colored'
+      });
+      signIn({
+        token: res.data.token,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: { email: formData.email }
+      });
+      navigate('/');
+    }
   } catch(err) {
-    console.log(err);
+    setError(false);
   }
   };
 
@@ -116,7 +122,7 @@ const LoginForm = ({ hasLabel, layout }) => {
       </Form.Group>
 
       <Divider className="mt-4">or log in with</Divider>
-
+      {errorMessage}
       <SocialAuthButtons />
     </Form>
   );

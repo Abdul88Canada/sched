@@ -20,6 +20,9 @@ const RegistrationForm = ({ hasLabel }) => {
     isAccepted: false
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState(false);
+
   const signIn = useSignIn();
   const navigate = useNavigate();
 
@@ -27,19 +30,25 @@ const RegistrationForm = ({ hasLabel }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/signup', formData);
-      toast.success(`Successfully registered as ${formData.name}`, {
-        theme: 'colored'
+      const res = await axios.post('http://localhost:5000/api/users/signup', formData).catch((error) => {
+        setErrorMessage(error.response.data.message);
+        setError(true);
+        throw new Error(error.response.data.message);
       });
-      signIn({
-        token: res.data.token,
-        expiresIn: 3600,
-        tokenType: "Bearer",
-        authState: { email: formData.email }
-      });
-      navigate('/');
+      if(!error) {
+        toast.success(`Successfully registered as ${formData.name}`, {
+          theme: 'colored'
+        });
+        signIn({
+          token: res.data.token,
+          expiresIn: 3600,
+          tokenType: "Bearer",
+          authState: { email: formData.email }
+        });
+        navigate('/');
+      }
     } catch(err) {
-      console.log(err);
+      setError(false);
     }
   };
 
@@ -133,7 +142,7 @@ const RegistrationForm = ({ hasLabel }) => {
         </Button>
       </Form.Group>
       <Divider>or register with</Divider>
-
+      {errorMessage}
       <SocialAuthButtons />
     </Form>
   );

@@ -2,7 +2,7 @@ import express from 'express';
 
 import User from '../../models/user.js';
 
-import getUserPermission from '../../middleware/permissions.js';
+import {getUserPermission} from '../../middleware/permissions.js';
 
 const router = express.Router();
 

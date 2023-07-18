@@ -196,6 +196,9 @@ import QuickLinks from 'components/app/support-desk/quick-links/QuickLinks';
 import Reports from 'components/app/support-desk/reports/Reports';
 import InputMaskExample from 'components/doc-components/InputMaskExample';
 import RangeSlider from 'components/doc-components/RangeSlider';
+
+import Users from 'components/users/Users';
+
 import {RequireAuth} from 'react-auth-kit';
 
 const FalconRoutes = () => {
@@ -296,6 +299,7 @@ const FalconRoutes = () => {
         {/*Dashboard*/}
         <Route path="/" element={<RequireAuth loginPath='/authentication/simple/login'><Dashboard /></RequireAuth>} />
         <Route path="dashboard/analytics" element={<RequireAuth loginPath='/authentication/simple/login'><Analytics /></RequireAuth>} />
+        <Route path="dashboard/users" element={<RequireAuth loginPath='/authentication/simple/login'><Users /></RequireAuth>} /> 
         <Route path="dashboard/crm" element={<RequireAuth loginPath='/authentication/simple/login'><Crm /></RequireAuth>} />
         <Route path="dashboard/saas" element={<RequireAuth loginPath='/authentication/simple/login'><Saas /></RequireAuth>} />
         <Route path="dashboard/e-commerce" element={<RequireAuth loginPath='/authentication/simple/login'><Ecommerce /></RequireAuth>} />

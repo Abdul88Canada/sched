@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/api/users/', addUserPermission(["PM"]),
     async (req, res) => {
         try {
-            const {email, password} = req.body;
+            const {email, password, id} = req.body;
     
             const exsitingUser = await User.findOne({email});
         
@@ -17,9 +17,9 @@ router.post('/api/users/', addUserPermission(["PM"]),
                 
             const hashedPassword = await bcrypt.hash(password, 12);
         
-            await User.create({email, password: hashedPassword, isProjectManager: false, firstTimeUser: true});
+            await User.create({email, password: hashedPassword, isProjectManager: false, firstTimeUser: true, projectManagerId: id});
 
-            res.json({message: `user add`});
+            res.json({message: `user added`});
         } catch (error) {
             res.status(500).json({message: error.message});
         }

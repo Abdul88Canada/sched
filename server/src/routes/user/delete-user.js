@@ -14,10 +14,17 @@ router.delete('/api/users/:id', deleteUserPermission(["PM"]),
             const exsitingUser = await User.findOne({_id: id});
         
             if (!exsitingUser) return res.status(400).json({message: 'User dosen\'t exsit.'});
-                        
-            await User.findByIdAndDelete({_id: id});
+            
+            if(exsitingUser.projectManagerId == req.body.id) {
+                await User.findByIdAndDelete({_id: id});
+                res.json({message: `user deleted`});
+            }
+            else {
+                return res.status(401).json('Unauthorized');
+            }           
+            
 
-            res.json({message: `user deleted`});
+            
         } catch (error) {
             res.status(500).json({message: error.message});
         }

@@ -9,7 +9,8 @@ const router = express.Router();
 router.get('/api/users/', listUsersPermission(["PM"]),
     async (req, res) => {
         try {
-
+            const users = await User.find({projectManagerId: req.body.id});
+            res.status(200).json({result: users});
         } catch (error) {
             res.status(500).json({message: error.message});
         }

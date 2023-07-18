@@ -13,9 +13,7 @@ export const addUserPermission = (permissions) => {
 export const deleteUserPermission = (permissions) => {
     return (req, res, next) => {
         const role = req.body.role;
-        const users = req.body.users;
-        const id = req.params.id
-        if(permissions.includes(role) && users?.includes(id)) {
+        if(permissions.includes(role)) {
             next();
         }
         else {
@@ -28,10 +26,10 @@ export const getUserPermission = (permissions) => {
     return (req, res, next) => {
         const role = req.body.role;
         const users = req.body.users;
-        const id = req.params.id
+        const id = req.params.id;
         const user_id = req.body.id;
 
-        if((permissions.includes(role) && users?.includes(id)) || id == user_id) {
+        if(permissions.includes(role) || id == user_id) {
             next();
         }
         else {

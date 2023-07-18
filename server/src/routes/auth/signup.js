@@ -9,7 +9,6 @@ const router = express.Router();
 router.post('/api/users/signup',
     async (req, res) => {
         try {
-            console.log(req.body)
             const {email, password, confirmPassword} = req.body;
     
             const exsitingUser = await User.findOne({email});
@@ -20,9 +19,9 @@ router.post('/api/users/signup',
         
             const hashedPassword = await bcrypt.hash(password, 12);
         
-            const result = await User.create({email, password: hashedPassword});
+            const result = await User.create({email, password: hashedPassword, role: "PM"});
         
-            const token = jwt.sign({email: result.email, id: result._id}, 'test');
+            const token = jwt.sign({email: result.email, id: result._id, role: result.role}, 'test');
         
             res.json({message: 'Welcome!', token});
         } catch (error) {

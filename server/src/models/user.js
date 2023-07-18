@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     projects: [mongoose.Schema.Types.ObjectId],
     tasks: [mongoose.Schema.Types.ObjectId],
     teams: [mongoose.Schema.Types.ObjectId],
-    isProjectManager: Boolean
+    role: String,
+    firstTimeUser: Boolean
 });
 
 const User = mongoose.model('User', userSchema);

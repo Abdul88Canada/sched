@@ -3,11 +3,12 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
-import { signinRouter } from './routes/signin.js';
-
-import { signoutRouter } from './routes/signout.js';
-import { signupRouter } from './routes/signup.js';
-import { testRouter } from './routes/test.js';
+import { signinRouter } from './routes/auth/signin.js';
+import { signoutRouter } from './routes/auth/signout.js';
+import { signupRouter } from './routes/auth/signup.js';
+import { addUserRouter } from './routes/user/add-user.js';
+import { deleteUserRouter } from './routes/user/delete-user.js';
+import { getUserRouter } from './routes/user/get-user.js';
 
 const app = express();
 
@@ -22,7 +23,9 @@ app.use(cors({
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
-app.use(testRouter);
+app.use(addUserRouter);
+app.use(deleteUserRouter);
+app.use(getUserRouter);
 
 const start = async () => {
     try {

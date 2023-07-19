@@ -15,6 +15,7 @@ import SimpleBarReact from 'simplebar-react';
 
 const UserRow = ({
   email,
+  projectManagerId
 }) => {
   return (
     <tr className={classNames( 'border-bottom border-200' )}>
@@ -34,6 +35,11 @@ const UserRow = ({
           </div>
         </Flex>
       </td>
+      <td className="align-middle text-center fw-semi-bold">
+            <Link className="text-dark stretched-link" to="#!">
+                {projectManagerId}
+            </Link>
+      </td>
     </tr>
   );
 };
@@ -50,8 +56,8 @@ const UserInfo = ({ data }) => {
           >
             <thead className="bg-light">
               <tr className="text-900">
-                <th>User info</th>
-                <th className="text-center">Attendance</th>
+                <th>User Email</th>
+                <th className="text-center">Project Manager ID</th>
                 <th className="text-center">Today</th>
                 <th className="text-end">This Week</th>
               </tr>

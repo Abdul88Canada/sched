@@ -8,12 +8,15 @@ const router = express.Router();
 
 router.get('/api/users/', listUsersPermission(["PM"]),
     async (req, res) => {
+        const {id} = req.query;
+        console.log('HI!');
         try {
-            const users = await User.find({projectManagerId: req.body.id});
+            const users = await User.find({projectManagerId: id});
+            console.log(users);
             res.status(200).json({result: users});
         } catch (error) {
             res.status(500).json({message: error.message});
         }
 });
 
-export { router as getUserRouter };
+export { router as listUsersRouter };

@@ -13,25 +13,15 @@ import { getColor } from 'helpers/utils';
 import FalconLink from 'components/common/FalconLink';
 import SimpleBarReact from 'simplebar-react';
 
-const MembersRow = ({
+const UserRow = ({
   email,
-  img,
-  role,
-  isLast,
-  status,
-  attendance,
-  today,
-  thisWeek,
-  data
 }) => {
   return (
-    <tr className={classNames({ 'border-bottom border-200': !isLast })}>
+    <tr className={classNames( 'border-bottom border-200' )}>
       <td>
         <Flex alignItems="center" className="position-relative">
           <Avatar
-            className={`status-${status}`}
             size="2xl"
-            src={img}
             width="60"
             alt={email}
           />
@@ -41,53 +31,15 @@ const MembersRow = ({
                 {email}
               </Link>
             </h6>
-            <p className="fs--2 mb-0 text-500">{role}</p>
           </div>
         </Flex>
-      </td>
-      <td className="align-middle text-center fw-semi-bold">
-        <SoftBadge pill bg={attendance.color}>
-          {attendance.text}
-        </SoftBadge>
-      </td>
-      <td className="align-middle text-center fw-semi-bold">
-        <SoftBadge pill bg={today.color}>
-          {today.amount}%
-        </SoftBadge>
-        <p className="fs--2 mb-0">{today.time}</p>
-      </td>
-      <td className="align-middle">
-        <Row className="g-2 justify-content-end">
-          <Col xs="auto">
-            <SoftBadge pill bg={thisWeek.color}>
-              {thisWeek.amount}%
-            </SoftBadge>
-            <p className="fs--2 mb-0">{thisWeek.time}</p>
-          </Col>
-          <Col xs="auto" className="mt-auto">
-            <BasicECharts
-              echarts={echarts}
-              options={{
-                color: getColor('primary'),
-                tooltip: { show: false },
-                series: [
-                  {
-                    data
-                  }
-                ]
-              }}
-              className="mb-1"
-              style={{ width: '3.625rem', height: '1rem' }}
-            />
-          </Col>
-        </Row>
       </td>
     </tr>
   );
 };
 
-const MemberInfo = ({ data }) => {
-  console.log(data);
+const UserInfo = ({ data }) => {
+  console.log(data.result);
   return (
     <Card className="h-100">
       <Card.Body className="p-0">
@@ -98,15 +50,15 @@ const MemberInfo = ({ data }) => {
           >
             <thead className="bg-light">
               <tr className="text-900">
-                <th>Member info</th>
+                <th>User info</th>
                 <th className="text-center">Attendance</th>
                 <th className="text-center">Today</th>
                 <th className="text-end">This Week</th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((info, index) => (
-                <MembersRow
+              {data.result?.map((info, index) => (
+                <UserRow
                   {...info}
                   isLast={index === data.length - 1}
                   key={info.id}
@@ -116,26 +68,11 @@ const MemberInfo = ({ data }) => {
           </Table>
         </SimpleBarReact>
       </Card.Body>
-
-      <Card.Footer className="bg-light py-2">
-        <Row className="g-0 flex-between-center">
-          <Col xs="auto">
-            <Form.Select size="sm" className="me-2">
-              <option>Last 7 days</option>
-              <option>Last Month</option>
-              <option>Last Year</option>
-            </Form.Select>
-          </Col>
-          <Col xs="auto">
-            <FalconLink title="View All" className="px-0" />
-          </Col>
-        </Row>
-      </Card.Footer>
     </Card>
   );
 };
 
-MembersRow.propTypes = {
+/*UserRow.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   name: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
@@ -159,8 +96,8 @@ MembersRow.propTypes = {
   data: PropTypes.array.isRequired
 };
 
-MemberInfo.propTypes = {
+UserInfo.propTypes = {
   data: PropTypes.array.isRequired
-};
+};*/
 
-export default MemberInfo;
+export default UserInfo;

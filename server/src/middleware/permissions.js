@@ -40,8 +40,7 @@ export const getUserPermission = (permissions) => {
 
 export const listUsersPermission = (permissions) => {
     return (req, res, next) => {
-        const role = req.body.role;
-
+        const {role} = req.query;
         if(permissions.includes(role)) {
             next();
         }

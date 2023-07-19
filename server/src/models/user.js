@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
     role: String,
     firstTimeUser: Boolean,
     projectManagerId: mongoose.Schema.Types.ObjectId
+}, {
+    toJSON: {
+        transform(doc, ret) {
+            delete ret.password;
+        }
+    }
 });
 
 const User = mongoose.model('User', userSchema);

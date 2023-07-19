@@ -198,7 +198,7 @@ import InputMaskExample from 'components/doc-components/InputMaskExample';
 import RangeSlider from 'components/doc-components/RangeSlider';
 
 import Users from 'components/users/Users';
-import AddUser from 'components/users/AddUser';
+import AddUser from 'components/users/add-user/AddUser';
 
 import {RequireAuth} from 'react-auth-kit';
 

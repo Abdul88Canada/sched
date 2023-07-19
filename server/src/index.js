@@ -9,6 +9,7 @@ import { signupRouter } from './routes/auth/signup.js';
 import { addUserRouter } from './routes/user/add-user.js';
 import { deleteUserRouter } from './routes/user/delete-user.js';
 import { getUserRouter } from './routes/user/get-user.js';
+import { listUsersRouter } from './routes/user/list-users.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(signupRouter);
 app.use(addUserRouter);
 app.use(deleteUserRouter);
 app.use(getUserRouter);
+app.use(listUsersRouter);
 
 const start = async () => {
     try {

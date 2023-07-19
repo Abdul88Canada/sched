@@ -43,7 +43,7 @@ const RegistrationForm = ({ hasLabel }) => {
           token: res.data.token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: { id: res.data.id }
+          authState: { id: res.data.id, role: res.data.role }
         });
         console.log(res.data);
         navigate('/');

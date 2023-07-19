@@ -23,7 +23,7 @@ router.post('/api/users/signup',
         
             const token = jwt.sign({email: result.email, id: result._id, role: result.role}, 'test');
             
-            res.json({message: 'Welcome!', token, id: result._id});
+            res.json({message: 'Welcome!', token, id: result._id, role: result.role});
         } catch (error) {
             res.status(500).json({message: error.message});
         }

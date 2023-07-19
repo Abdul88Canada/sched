@@ -198,6 +198,7 @@ import InputMaskExample from 'components/doc-components/InputMaskExample';
 import RangeSlider from 'components/doc-components/RangeSlider';
 
 import Users from 'components/users/Users';
+import AddUser from 'components/users/AddUser';
 
 import {RequireAuth} from 'react-auth-kit';
 
@@ -309,6 +310,10 @@ const FalconRoutes = () => {
           element={<RequireAuth loginPath='/authentication/simple/login'><ProjectManagement /></RequireAuth>}
         />
         <Route path="dashboard/support-desk" element={<RequireAuth loginPath='/authentication/simple/login'><SupportDesk /></RequireAuth>} />
+        
+        {/*Users Crud*/}
+        <Route path="dashboard/users/add-user" element={<RequireAuth loginPath='/authentication/simple/login'><AddUser /></RequireAuth>} /> 
+
         {/* E Commerce */}
         <Route
           path="e-commerce/orders/order-details"

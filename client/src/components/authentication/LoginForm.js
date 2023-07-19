@@ -40,7 +40,7 @@ const LoginForm = ({ hasLabel, layout }) => {
         token: res.data.token,
         expiresIn: 3600,
         tokenType: "Bearer",
-        authState: { email: formData.email }
+        authState: { id: res.data.id }
       });
       navigate('/');
     }

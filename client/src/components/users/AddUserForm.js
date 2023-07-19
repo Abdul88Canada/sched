@@ -9,7 +9,7 @@ import {useAuthUser} from 'react-auth-kit'
 
 const AddUserForm = ({ hasLabel }) => {
     const auth = useAuthUser();
-    console.log('Hello ' + auth().email);
+    console.log('Hello ' + auth().id);
     // State
     const [formData, setFormData] = useState({
       name: '',

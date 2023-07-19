@@ -21,7 +21,7 @@ router.post('/api/users/signin',
     
             const token = jwt.sign({email: user.email, id: user._id}, 'test');
     
-            res.json({message: 'Welcome!', token});
+            res.json({message: 'Welcome!', token, id: user._id});
         } catch (error) {
             console.log(error.message);
             res.status(500).json({message: error.message});

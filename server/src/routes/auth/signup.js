@@ -22,8 +22,8 @@ router.post('/api/users/signup',
             const result = await User.create({email, password: hashedPassword, role: "PM"});
         
             const token = jwt.sign({email: result.email, id: result._id, role: result.role}, 'test');
-        
-            res.json({message: 'Welcome!', token});
+            
+            res.json({message: 'Welcome!', token, id: result._id});
         } catch (error) {
             res.status(500).json({message: error.message});
         }

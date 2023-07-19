@@ -43,8 +43,9 @@ const RegistrationForm = ({ hasLabel }) => {
           token: res.data.token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: { email: formData.email }
+          authState: { id: res.data.id }
         });
+        console.log(res.data);
         navigate('/');
       }
     } catch(err) {

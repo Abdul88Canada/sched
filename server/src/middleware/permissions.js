@@ -5,7 +5,7 @@ export const addUserPermission = (permissions) => {
             next();
         }
         else {
-            return res.status(401).json('Unauthorized');
+            return res.status(401).json({message: 'Unauthorized'});
         }
     }
 }
@@ -17,7 +17,7 @@ export const deleteUserPermission = (permissions) => {
             next();
         }
         else {
-            return res.status(401).json('Unauthorized');
+            return res.status(401).json({message: 'Unauthorized'});
         }
     }
 }
@@ -33,7 +33,7 @@ export const getUserPermission = (permissions) => {
             next();
         }
         else {
-            return res.status(401).json('Unauthorized');
+            return res.status(401).json({message: 'Unauthorized'});
         }
     }
 }
@@ -46,7 +46,7 @@ export const listUsersPermission = (permissions) => {
             next();
         }
         else {
-            return res.status(401).json('Unauthorized');
+            return res.status(401).json({message: 'Unauthorized'});
         }
     }
 }

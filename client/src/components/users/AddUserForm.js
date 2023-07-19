@@ -37,7 +37,7 @@ const navigate = useNavigate();
         toast.success(`Successfully Added user ${formData.name}`, {
           theme: 'colored'
         });
-        navigate('/dashbord/users');
+        navigate('/dashboard/users');
       }
     } catch(err) {
       setError(false);

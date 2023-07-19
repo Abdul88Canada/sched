@@ -3,12 +3,14 @@ import bcrypt from 'bcrypt';
 
 import User from '../../models/user.js';
 import { addUserPermission } from '../../middleware/permissions.js';
+import verifyToken from '../../middleware/verify-token.js';
 
 const router = express.Router();
 
-router.post('/api/users/', addUserPermission(["PM"]),
+router.post('/api/users/', verifyToken, addUserPermission(["PM"]),
     async (req, res) => {
         try {
+            
             const {email, password, id} = req.body;
     
             const exsitingUser = await User.findOne({email});

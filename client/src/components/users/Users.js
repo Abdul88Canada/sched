@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser, useAuthHeader } from 'react-auth-kit'
 
 import ListUsers from "./list-users/ListUsers";
 
 const Users = () => {
     const auth = useAuthUser();
+    const authHeader = useAuthHeader()
+    console.log(authHeader());
     const managerData = {
         role: auth().role,
         id: auth().id
@@ -19,7 +21,11 @@ const Users = () => {
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const res = await axios.get('http://localhost:5000/api/users/', {params: {id: managerData.id, role: managerData.role}}).catch((error) => {
+                const res = await axios.get('http://localhost:5000/api/users/', {
+                    headers: {
+                        Authorization: authHeader() // Set the token in the 'Authorization' header
+                    }
+                    }).catch((error) => {
                     setErrorMessage(error.response.data?.message);
                     setError(true);
                     throw new Error(error.response.data?.message);

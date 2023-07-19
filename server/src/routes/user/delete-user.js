@@ -1,12 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
+import verifyToken from '../../middleware/verify-token.js';
 
 import User from '../../models/user.js';
 import {deleteUserPermission} from '../../middleware/permissions.js';
 
 const router = express.Router();
 
-router.delete('/api/users/:id', deleteUserPermission(["PM"]),
+router.delete('/api/users/:id', verifyToken, deleteUserPermission(["PM"]),
     async (req, res) => {
         try {
             const id = req.params.id;

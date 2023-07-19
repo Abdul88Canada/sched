@@ -3,10 +3,11 @@ import express from 'express';
 import User from '../../models/user.js';
 
 import {getUserPermission} from '../../middleware/permissions.js';
+import verifyToken from '../../middleware/verify-token.js';
 
 const router = express.Router();
 
-router.get('/api/users/:id', getUserPermission(["PM"]),
+router.get('/api/users/:id', verifyToken, getUserPermission(["PM"]),
     async (req, res) => {
         try {
             const id = req.params.id;

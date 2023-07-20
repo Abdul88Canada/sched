@@ -24,6 +24,11 @@ export const dashboardRoutes = {
           active: true
         },
         {
+          name: 'Teams',
+          to: '/dashboard/teams',
+          active: true
+        },
+        {
           name: 'CRM',
           to: '/dashboard/crm',
           active: true

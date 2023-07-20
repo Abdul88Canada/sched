@@ -201,6 +201,10 @@ import Users from 'components/users/Users';
 import AddUser from 'components/users/add-user/AddUser';
 import UserDetails from 'components/users/UserDetails';
 
+import Teams from 'components/teams/Teams';
+import AddTeam from 'components/teams/add-team/AddTeam';
+import TeamDetails from 'components/teams/TeamDetails';
+
 import {RequireAuth} from 'react-auth-kit';
 
 const FalconRoutes = () => {
@@ -302,6 +306,7 @@ const FalconRoutes = () => {
         <Route path="/" element={<RequireAuth loginPath='/authentication/simple/login'><Dashboard /></RequireAuth>} />
         <Route path="dashboard/analytics" element={<RequireAuth loginPath='/authentication/simple/login'><Analytics /></RequireAuth>} />
         <Route path="dashboard/users" element={<RequireAuth loginPath='/authentication/simple/login'><Users /></RequireAuth>} /> 
+        <Route path="dashboard/teams" element={<RequireAuth loginPath='/authentication/simple/login'><Teams /></RequireAuth>} /> 
         <Route path="dashboard/crm" element={<RequireAuth loginPath='/authentication/simple/login'><Crm /></RequireAuth>} />
         <Route path="dashboard/saas" element={<RequireAuth loginPath='/authentication/simple/login'><Saas /></RequireAuth>} />
         <Route path="dashboard/e-commerce" element={<RequireAuth loginPath='/authentication/simple/login'><Ecommerce /></RequireAuth>} />
@@ -314,7 +319,11 @@ const FalconRoutes = () => {
         
         {/*Users Crud*/}
         <Route path="dashboard/users/add-user" element={<RequireAuth loginPath='/authentication/simple/login'><AddUser /></RequireAuth>} /> 
-        <Route path="dashboard/users/:userId/details" element={<RequireAuth loginPath='/authentication/simple/login'><UserDetails /></RequireAuth>} />      
+        <Route path="dashboard/users/:userId/details" element={<RequireAuth loginPath='/authentication/simple/login'><UserDetails /></RequireAuth>} />
+
+        {/*Teams Crud*/}
+        <Route path="dashboard/teams/add-team" element={<RequireAuth loginPath='/authentication/simple/login'><AddTeam /></RequireAuth>} /> 
+        <Route path="dashboard/teams/:teamId/details" element={<RequireAuth loginPath='/authentication/simple/login'><TeamDetails /></RequireAuth>} />      
 
         {/* E Commerce */}
         <Route

@@ -16,7 +16,7 @@ router.get('/api/users/:id', verifyToken, getUserPermission(["PM"]),
         
             if (!exsitingUser) return res.status(400).json({message: 'User dosen\'t exsit.'});
 
-            if(exsitingUser.projectManagerId == req.body.id) {
+            if(exsitingUser.projectManagerId ==  req.user.id) {
                 res.status(200).json({result: exsitingUser});
             }
             else {

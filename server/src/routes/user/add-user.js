@@ -10,7 +10,6 @@ const router = express.Router();
 router.post('/api/users/', verifyToken, addUserPermission(["PM"]),
     async (req, res) => {
         try {
-            console.log('HI')
             const {email, password} = req.body;
 
             const {id} = req.user;

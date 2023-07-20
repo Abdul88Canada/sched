@@ -1,6 +1,7 @@
 export const addUserPermission = (permissions) => {
     return (req, res, next) => {
-        const role = req.body.role
+        const {role} = req.user;
+        console.log('B')
         if(permissions.includes(role)) {
             next();
         }
@@ -12,7 +13,7 @@ export const addUserPermission = (permissions) => {
 
 export const deleteUserPermission = (permissions) => {
     return (req, res, next) => {
-        const role = req.body.role;
+        const {role} = req.user;
         if(permissions.includes(role)) {
             next();
         }

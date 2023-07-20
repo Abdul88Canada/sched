@@ -199,6 +199,7 @@ import RangeSlider from 'components/doc-components/RangeSlider';
 
 import Users from 'components/users/Users';
 import AddUser from 'components/users/add-user/AddUser';
+import UserDetails from 'components/users/UserDetails';
 
 import {RequireAuth} from 'react-auth-kit';
 
@@ -313,6 +314,7 @@ const FalconRoutes = () => {
         
         {/*Users Crud*/}
         <Route path="dashboard/users/add-user" element={<RequireAuth loginPath='/authentication/simple/login'><AddUser /></RequireAuth>} /> 
+        <Route path="dashboard/users/:userId/details" element={<RequireAuth loginPath='/authentication/simple/login'><UserDetails /></RequireAuth>} />      
 
         {/* E Commerce */}
         <Route

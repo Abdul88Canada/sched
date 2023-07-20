@@ -10,9 +10,11 @@ const router = express.Router();
 router.post('/api/users/', verifyToken, addUserPermission(["PM"]),
     async (req, res) => {
         try {
+            console.log('HI')
+            const {email, password} = req.body;
+
+            const {id} = req.user;
             
-            const {email, password, id} = req.body;
-    
             const exsitingUser = await User.findOne({email});
         
             if (exsitingUser) return res.status(400).json({message: 'User already exsit.'});

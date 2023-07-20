@@ -4,19 +4,18 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import {useAuthUser} from 'react-auth-kit'
+import { useAuthUser, useAuthHeader } from 'react-auth-kit'
 
 
 const AddUserForm = ({ hasLabel }) => {
-    const auth = useAuthUser();
+    const authHeader = useAuthHeader();
+
     // State
     const [formData, setFormData] = useState({
       name: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      role: auth().role,
-      id: auth().id
+      confirmPassword: ''
 });
 
 const [errorMessage, setErrorMessage] = useState('');
@@ -28,7 +27,10 @@ const navigate = useNavigate();
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users', formData).catch((error) => {
+      const res = await axios.post('http://localhost:5000/api/users',  formData, {headers: {
+        Authorization: authHeader() // Set the token in the 'Authorization' header
+        }
+        }).catch((error) => {
         setErrorMessage(error.response.data.message);
         setError(true);
         throw new Error(error.response.data.message);

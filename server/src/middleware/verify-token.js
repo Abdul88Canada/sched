@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
   try {
     // Split the Authorization header to get the token
     const token = authHeader.split(' ')[1];
-    
+
     // Verify the token using the secret key
     const decoded = jwt.verify(token, 'test');
 
@@ -23,6 +23,7 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     // If the token verification fails, return an error response
+    console.log('Bg')
     return res.status(401).json({ error: 'Invalid token' });
   }
 };

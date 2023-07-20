@@ -7,13 +7,8 @@ import { useAuthUser, useAuthHeader } from 'react-auth-kit'
 import ListUsers from "./list-users/ListUsers";
 
 const Users = () => {
-    const auth = useAuthUser();
-    const authHeader = useAuthHeader()
-    console.log(authHeader());
-    const managerData = {
-        role: auth().role,
-        id: auth().id
-    }
+    const authHeader = useAuthHeader();
+
     const [data, setData] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);

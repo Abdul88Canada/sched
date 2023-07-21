@@ -4,7 +4,9 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useAuthUser, useAuthHeader } from 'react-auth-kit'
+import { useAuthHeader } from 'react-auth-kit'
+
+import users from "api/users";
 
 
 const AddUserForm = ({ hasLabel }) => {
@@ -27,7 +29,7 @@ const navigate = useNavigate();
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users',  formData, {headers: {
+      const res = await users.post('/',  formData, {headers: {
         Authorization: authHeader() // Set the token in the 'Authorization' header
         }
         }).catch((error) => {

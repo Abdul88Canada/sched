@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
-import { useAuthUser, useAuthHeader } from 'react-auth-kit'
+import { useAuthHeader } from 'react-auth-kit'
 
 import ListUsers from "./list-users/ListUsers";
+import users from "api/users";
 
 const Users = () => {
     const authHeader = useAuthHeader();
@@ -16,7 +16,7 @@ const Users = () => {
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const res = await axios.get('http://localhost:5000/api/users/', {
+                const res = await users.get('/', {
                     headers: {
                         Authorization: authHeader() // Set the token in the 'Authorization' header
                     }

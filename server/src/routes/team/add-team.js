@@ -9,11 +9,12 @@ const router = express.Router();
 router.post('/api/teams/', verifyToken, addUserPermission(["PM"]),
     async (req, res) => {
         try {
-            const {name} = req.body;
+            console.log('ADD TEAM')
+            const {name, members} = req.body;
 
             const {id} = req.user;
                                             
-            await Team.create({name: name, projectManagerId: id});
+            await Team.create({name, projectManagerId: id, members});
 
             res.json({message: `team created`});
         } catch (error) {

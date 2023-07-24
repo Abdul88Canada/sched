@@ -12,6 +12,7 @@ router.get('/api/users/', verifyToken,
         const {id} = req.user;
         try {
             const users = await User.find({projectManagerId: id});
+            console.log('listing users: ' + users)
             res.status(200).json({result: users});
         } catch (error) {
             res.status(500).json({message: error.message});

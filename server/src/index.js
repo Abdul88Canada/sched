@@ -17,6 +17,11 @@ import { deleteTeamRouter } from './routes/team/delete-team.js';
 import { getTeamRouter } from './routes/team/get-team.js';
 import { listTeamsRouter } from './routes/team/list-teams.js';
 
+import { addProjectRouter } from './routes/project/add-project.js';
+import { deleteProjectRouter } from './routes/project/delete-project.js';
+import { getProjectRouter } from './routes/project/get-prject.js';
+import { listProjectRouter } from './routes/project/list-projects.js';
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +45,11 @@ app.use(addTeamRouter);
 app.use(deleteTeamRouter);
 app.use(getTeamRouter);
 app.use(listTeamsRouter);
+
+app.use(addProjectRouter);
+app.use(deleteProjectRouter);
+app.use(getProjectRouter);
+app.use(listProjectRouter);
 
 const start = async () => {
     try {

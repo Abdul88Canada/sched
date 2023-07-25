@@ -8,7 +8,7 @@ const projectSchema = mongoose.Schema({
     tasks: [mongoose.Schema.Types.ObjectId],
     startDate: Date,
     endDate: Date,
-    team: mongoose.Schema.Types.ObjectId
+    team: [mongoose.Schema.Types.ObjectId]
 });
 
 const Project = mongoose.model('Project', projectSchema);

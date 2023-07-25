@@ -9,7 +9,6 @@ const router = express.Router();
 router.post('/api/teams/', verifyToken, addUserPermission(["PM"]),
     async (req, res) => {
         try {
-            console.log('ADD TEAM')
             const {name, members} = req.body;
 
             const {id} = req.user;

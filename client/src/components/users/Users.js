@@ -48,6 +48,7 @@ const Users = () => {
         <div>
             <Button variant='falcon-primary' className='me-2 mb-1' onClick={handleClick}>Add User</Button>
             <ListUsers data={data}/>
+            {errorMessage}
         </div>
     )
 }
